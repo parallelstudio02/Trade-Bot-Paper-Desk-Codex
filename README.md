@@ -1,4 +1,4 @@
-# Opening Hour Trade Bot
+# Opening Hour Trade Bot - Codex
 
 A browser-based paper-trading assistant for the first hour of the US stock market open, tuned for Singapore time.
 
