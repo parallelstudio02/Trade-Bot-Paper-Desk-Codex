@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Opening Hour Trade Bot</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">NYSE/NASDAQ opening-hour assistant</p>
+        <h1>Trade Bot Paper Desk</h1>
+      </div>
+      <div class="clock">
+        <span id="sgTime">--:--</span>
+        <small>Singapore time</small>
+      </div>
+    </header>
+
+    <main>
+      <section class="control-strip" aria-label="Trading controls">
+        <label>
+          Capital
+          <span class="money-input"><span>$</span><input id="capital" type="number" min="100" step="50" value="1000" /></span>
+        </label>
+        <label>
+          Max loss / trade
+          <span class="money-input"><span>$</span><input id="maxLoss" type="number" min="5" step="5" value="30" /></span>
+        </label>
+        <label>
+          Daily target
+          <span class="money-input"><span>$</span><input id="dailyTarget" type="number" min="5" step="5" value="20" /></span>
+        </label>
+        <button id="refreshBtn" class="primary">Manual refresh</button>
+        <button id="autoRefreshBtn" aria-pressed="false">Auto 1 min: off</button>
+      </section>
+
+      <section class="summary-grid">
+        <article class="stat-card">
+          <span class="label">Daily P/L</span>
+          <strong id="dailyPnl">$0.00</strong>
+        </article>
+        <article class="stat-card">
+          <span class="label">Goal left</span>
+          <strong id="goalLeft">$20.00</strong>
+        </article>
+        <article class="stat-card">
+          <span class="label">Trades used</span>
+          <strong id="tradesUsed">0</strong>
+        </article>
+        <article class="stat-card">
+          <span class="label">Refresh</span>
+          <strong id="refreshState">Manual</strong>
+        </article>
+      </section>
+
+      <section class="main-grid">
+        <div>
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Ranked candidates</p>
+              <h2>Top 5 trade ideas that can fit your goal</h2>
+            </div>
+            <span id="lastUpdated" class="pill">Not scanned yet</span>
+          </div>
+          <div id="pickList" class="pick-list"></div>
+        </div>
+
+        <aside class="bot-panel">
+          <p class="eyebrow">Bot instruction</p>
+          <h2 id="activeTicker">Waiting for scan</h2>
+          <div id="tradePlan" class="trade-plan"></div>
+          <div class="fill-form">
+            <label>
+              Your Webull entry
+              <span class="money-input"><span>$</span><input id="actualEntry" type="text" inputmode="decimal" /></span>
+            </label>
+            <label>
+              Your Webull exit
+              <span class="money-input"><span>$</span><input id="actualExit" type="text" inputmode="decimal" /></span>
+            </label>
+            <label>
+              Shares
+              <input id="actualShares" type="number" min="0" step="1" />
+            </label>
+          </div>
+          <div class="bot-actions">
+            <button id="paperFillBtn">Use suggested entry</button>
+            <button id="paperExitBtn">Log exit and next</button>
+          </div>
+          <div class="message-box">
+            <label for="telegramText">Telegram-style alert</label>
+            <textarea id="telegramText" readonly></textarea>
+            <button id="copyBtn">Copy alert</button>
+          </div>
+        </aside>
+      </section>
+
+      <section class="journal-section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Paper journal</p>
+            <h2>Today's logged trades</h2>
+          </div>
+          <button id="resetDayBtn">Reset day</button>
+        </div>
+        <div class="journal-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Stock</th>
+                <th>Shares</th>
+                <th>Entry</th>
+                <th>Exit</th>
+                <th>P/L</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="journalBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      This tool is for research and paper trading. It does not guarantee profit and should not place real orders automatically.
+    </footer>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
