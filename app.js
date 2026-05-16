@@ -252,7 +252,9 @@ function renderPick(pick) {
       </div>
       <div class="score">
         <strong>${Math.round(pick.probability)}%</strong>
-        <small>Gap ${percent(pick.gap)} - Catalyst ${Math.round(pick.news)}/100 - ${money(sizing.reward)} max</small>
+        <small>Gap ${percent(pick.gap)}</small>
+        <small>Catalyst ${Math.round(pick.news)}/100</small>
+        <small>${money(sizing.reward)} max</small>
       </div>
       <div>
         <button class="select-btn" data-ticker="${pick.ticker}">${sizing.shares} shares</button>
