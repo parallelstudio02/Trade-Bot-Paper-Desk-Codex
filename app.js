@@ -225,11 +225,11 @@ function renderPick(pick) {
   const actionText = getActionText(pick, sizing);
   return `
     <article class="pick-card${active}">
-      <div>
-        <div class="ticker">${pick.ticker}</div>
-        <div class="company">${pick.company}</div>
-      </div>
-      <div class="decision-stack">
+      <div class="pick-main">
+        <div class="identity">
+          <div class="ticker">${pick.ticker}</div>
+          <div class="company">${pick.company}</div>
+        </div>
         <div class="now-price">
           <span>Now</span>
           <strong>${money(pick.currentPrice)}</strong>
@@ -243,20 +243,20 @@ function renderPick(pick) {
           <strong>${triggerText}</strong>
         </div>
       </div>
-      <div class="metrics">
-        <div class="metric"><span>Entry</span><strong>${money(pick.entry)}</strong></div>
-        <div class="metric"><span>Target</span><strong>${money(pick.exit)}</strong></div>
-        <div class="metric"><span>Stop</span><strong>${money(pick.stop)}</strong></div>
-        <div class="metric"><span>Rel vol</span><strong>${pick.relVol.toFixed(1)}x</strong></div>
-        <div class="metric"><span>R:R</span><strong>${pick.rewardRisk.toFixed(2)}</strong></div>
-      </div>
-      <div class="score">
-        <strong>${Math.round(pick.probability)}%</strong>
-        <small>Gap ${percent(pick.gap)}</small>
-        <small>Catalyst ${Math.round(pick.news)}/100</small>
-        <small>${money(sizing.reward)} max</small>
-      </div>
-      <div>
+      <div class="pick-details">
+        <div class="metrics">
+          <div class="metric"><span>Entry</span><strong>${money(pick.entry)}</strong></div>
+          <div class="metric"><span>Target</span><strong>${money(pick.exit)}</strong></div>
+          <div class="metric"><span>Stop</span><strong>${money(pick.stop)}</strong></div>
+          <div class="metric"><span>Rel vol</span><strong>${pick.relVol.toFixed(1)}x</strong></div>
+          <div class="metric"><span>R:R</span><strong>${pick.rewardRisk.toFixed(2)}</strong></div>
+        </div>
+        <div class="score">
+          <strong>${Math.round(pick.probability)}%</strong>
+          <small>Gap ${percent(pick.gap)}</small>
+          <small>Catalyst ${Math.round(pick.news)}/100</small>
+          <small>${money(sizing.reward)} max</small>
+        </div>
         <button class="select-btn" data-ticker="${pick.ticker}">${sizing.shares} shares</button>
       </div>
     </article>

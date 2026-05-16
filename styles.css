@@ -228,10 +228,8 @@ footer {
 
 .pick-card {
   display: grid;
-  grid-template-columns: minmax(80px, 0.7fr) minmax(210px, 1.25fr) minmax(320px, 1.8fr) minmax(150px, 0.85fr) minmax(110px, 0.65fr);
-  gap: 16px;
-  align-items: center;
-  padding: 14px;
+  gap: 12px;
+  padding: 16px;
   min-width: 0;
 }
 
@@ -251,16 +249,31 @@ footer {
   line-height: 1.25;
 }
 
+.pick-main,
+.pick-details {
+  display: grid;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.pick-main {
+  grid-template-columns: minmax(90px, 0.75fr) minmax(190px, 1.15fr) minmax(170px, 1fr) minmax(170px, 1fr);
+}
+
+.pick-details {
+  grid-template-columns: minmax(320px, 1fr) minmax(130px, 0.35fr) minmax(110px, 0.25fr);
+}
+
+.identity {
+  display: grid;
+  align-content: center;
+}
+
 .metrics {
   display: grid;
   grid-template-columns: repeat(5, minmax(66px, 1fr));
   gap: 8px;
   min-width: 0;
-}
-
-.decision-stack {
-  display: grid;
-  gap: 8px;
 }
 
 .now-price {
@@ -355,6 +368,7 @@ footer {
 
 .select-btn {
   width: 100%;
+  align-self: stretch;
 }
 
 .bot-panel {
@@ -478,26 +492,9 @@ footer {
     grid-template-columns: 1fr;
   }
 
-  .pick-card {
+  .pick-main,
+  .pick-details {
     grid-template-columns: 1fr;
-    align-items: stretch;
-  }
-
-  .decision-stack {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .now-price {
-    grid-row: span 2;
-  }
-
-  .score {
-    grid-template-columns: auto 1fr;
-    align-items: center;
-  }
-
-  .select-btn {
-    width: 100%;
   }
 
   .bot-panel {
@@ -518,8 +515,12 @@ footer {
     position: static;
   }
 
-  .pick-card {
-    grid-template-columns: 100px minmax(210px, 1fr) minmax(300px, 1.35fr) 150px 120px;
+  .pick-main {
+    grid-template-columns: minmax(90px, 0.65fr) minmax(180px, 1fr) minmax(160px, 1fr) minmax(160px, 1fr);
+  }
+
+  .pick-details {
+    grid-template-columns: minmax(320px, 1fr) 150px 120px;
   }
 }
 
@@ -546,16 +547,11 @@ footer {
     text-align: left;
   }
 
-  .metrics {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .decision-stack,
   .score {
     grid-template-columns: 1fr;
   }
 
-  .now-price {
-    grid-row: auto;
+  .metrics {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
