@@ -17,6 +17,7 @@ This is a decision-support tool, not an auto-trading system. It ranks NYSE/NASDA
 The app then gives:
 
 - top 5 ranked ideas
+- broad watchlist scan, with only the best 5 displayed
 - setup score, shown as a probability-style percentage
 - entry, exit, and stop prices
 - simulated current price
@@ -42,6 +43,8 @@ Open `index.html` in any browser.
 - Account type: cash only, no margin
 - Default scoring pace: $20 over about 5 trades
 - Commission/platform fee: $0
+
+The local prototype currently scans a simulated 44-stock liquid/momentum watchlist. The live API version should return a larger watchlist from the Worker, then let the frontend rank the top 5.
 
 ## Reality check
 

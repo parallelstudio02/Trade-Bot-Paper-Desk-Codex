@@ -1,3 +1,5 @@
+const apiUrl = "https://twelvedataapi.angie219.workers.dev/api/scan";
+let useLiveData = true;
 const universe = [
   { ticker: "AMD", company: "Advanced Micro Devices", price: 164.72, gap: 3.1, relVol: 4.8, pmVol: 7800000, float: "large", news: 76, spread: 0.05, atr: 4.6, trend: 0.72 },
   { ticker: "PLTR", company: "Palantir Technologies", price: 128.44, gap: 4.6, relVol: 5.2, pmVol: 9100000, float: "large", news: 81, spread: 0.04, atr: 3.9, trend: 0.74 },
@@ -8,7 +10,41 @@ const universe = [
   { ticker: "MARA", company: "MARA Holdings", price: 17.42, gap: 8.2, relVol: 8.6, pmVol: 8400000, float: "mid", news: 58, spread: 0.04, atr: 1.22, trend: 0.57 },
   { ticker: "SMCI", company: "Super Micro Computer", price: 44.26, gap: 7.4, relVol: 6.4, pmVol: 5100000, float: "mid", news: 72, spread: 0.08, atr: 2.8, trend: 0.63 },
   { ticker: "HOOD", company: "Robinhood Markets", price: 62.18, gap: 3.8, relVol: 3.9, pmVol: 2600000, float: "mid", news: 59, spread: 0.04, atr: 2.1, trend: 0.56 },
-  { ticker: "COIN", company: "Coinbase", price: 246.3, gap: 4.1, relVol: 4.6, pmVol: 3100000, float: "large", news: 65, spread: 0.09, atr: 9.9, trend: 0.59 }
+  { ticker: "COIN", company: "Coinbase", price: 246.3, gap: 4.1, relVol: 4.6, pmVol: 3100000, float: "large", news: 65, spread: 0.09, atr: 9.9, trend: 0.59 },
+  { ticker: "AAPL", company: "Apple", price: 198.34, gap: 1.3, relVol: 2.4, pmVol: 3900000, float: "large", news: 55, spread: 0.03, atr: 3.1, trend: 0.5 },
+  { ticker: "MSFT", company: "Microsoft", price: 482.12, gap: 1.1, relVol: 2.2, pmVol: 2100000, float: "large", news: 61, spread: 0.05, atr: 6.2, trend: 0.52 },
+  { ticker: "META", company: "Meta Platforms", price: 618.44, gap: 2.2, relVol: 3.3, pmVol: 1800000, float: "large", news: 69, spread: 0.08, atr: 10.8, trend: 0.66 },
+  { ticker: "AMZN", company: "Amazon", price: 221.68, gap: 1.9, relVol: 3.1, pmVol: 3300000, float: "large", news: 64, spread: 0.04, atr: 4.9, trend: 0.61 },
+  { ticker: "GOOGL", company: "Alphabet", price: 184.26, gap: 1.7, relVol: 2.9, pmVol: 2500000, float: "large", news: 63, spread: 0.04, atr: 3.8, trend: 0.58 },
+  { ticker: "NFLX", company: "Netflix", price: 655.2, gap: 3.3, relVol: 3.6, pmVol: 1100000, float: "large", news: 70, spread: 0.11, atr: 14.6, trend: 0.62 },
+  { ticker: "UBER", company: "Uber Technologies", price: 72.42, gap: 4.8, relVol: 5.1, pmVol: 4300000, float: "large", news: 74, spread: 0.04, atr: 2.3, trend: 0.68 },
+  { ticker: "AFRM", company: "Affirm", price: 38.72, gap: 7.9, relVol: 7.7, pmVol: 3400000, float: "mid", news: 67, spread: 0.06, atr: 2.4, trend: 0.6 },
+  { ticker: "DKNG", company: "DraftKings", price: 42.16, gap: 3.9, relVol: 4.4, pmVol: 2200000, float: "mid", news: 60, spread: 0.04, atr: 1.4, trend: 0.57 },
+  { ticker: "RBLX", company: "Roblox", price: 59.28, gap: 5.2, relVol: 5.7, pmVol: 1900000, float: "mid", news: 64, spread: 0.05, atr: 2.2, trend: 0.59 },
+  { ticker: "SNAP", company: "Snap", price: 10.88, gap: 8.6, relVol: 8.2, pmVol: 6600000, float: "mid", news: 58, spread: 0.02, atr: 0.62, trend: 0.54 },
+  { ticker: "SQ", company: "Block", price: 72.54, gap: 4.2, relVol: 4.9, pmVol: 1700000, float: "mid", news: 66, spread: 0.05, atr: 2.8, trend: 0.61 },
+  { ticker: "MU", company: "Micron Technology", price: 118.74, gap: 5.8, relVol: 5.4, pmVol: 5300000, float: "large", news: 75, spread: 0.04, atr: 4.4, trend: 0.7 },
+  { ticker: "INTC", company: "Intel", price: 31.26, gap: 3.5, relVol: 4.1, pmVol: 4900000, float: "large", news: 62, spread: 0.03, atr: 1.1, trend: 0.55 },
+  { ticker: "NIO", company: "NIO", price: 5.38, gap: 9.4, relVol: 9.1, pmVol: 11800000, float: "mid", news: 57, spread: 0.02, atr: 0.33, trend: 0.51 },
+  { ticker: "BABA", company: "Alibaba", price: 83.92, gap: 2.7, relVol: 3.8, pmVol: 2700000, float: "large", news: 60, spread: 0.05, atr: 2.6, trend: 0.54 },
+  { ticker: "F", company: "Ford", price: 12.62, gap: 4.4, relVol: 5.9, pmVol: 7200000, float: "large", news: 61, spread: 0.02, atr: 0.42, trend: 0.56 },
+  { ticker: "GM", company: "General Motors", price: 48.12, gap: 3.1, relVol: 4.0, pmVol: 2600000, float: "large", news: 59, spread: 0.03, atr: 1.3, trend: 0.52 },
+  { ticker: "PINS", company: "Pinterest", price: 36.84, gap: 6.2, relVol: 6.8, pmVol: 2100000, float: "mid", news: 68, spread: 0.04, atr: 1.5, trend: 0.63 },
+  { ticker: "SHOP", company: "Shopify", price: 68.94, gap: 4.7, relVol: 5.2, pmVol: 1900000, float: "large", news: 66, spread: 0.05, atr: 2.9, trend: 0.6 },
+  { ticker: "CRWD", company: "CrowdStrike", price: 314.52, gap: 3.6, relVol: 4.2, pmVol: 1200000, float: "large", news: 73, spread: 0.08, atr: 9.4, trend: 0.67 },
+  { ticker: "DDOG", company: "Datadog", price: 128.18, gap: 4.1, relVol: 4.6, pmVol: 950000, float: "mid", news: 65, spread: 0.06, atr: 4.5, trend: 0.61 },
+  { ticker: "NET", company: "Cloudflare", price: 88.36, gap: 5.9, relVol: 5.5, pmVol: 1300000, float: "mid", news: 63, spread: 0.06, atr: 3.6, trend: 0.58 },
+  { ticker: "PANW", company: "Palo Alto Networks", price: 342.88, gap: 2.9, relVol: 3.7, pmVol: 1100000, float: "large", news: 71, spread: 0.09, atr: 8.6, trend: 0.63 },
+  { ticker: "MRVL", company: "Marvell Technology", price: 76.34, gap: 6.6, relVol: 6.3, pmVol: 2400000, float: "large", news: 70, spread: 0.05, atr: 2.9, trend: 0.66 },
+  { ticker: "ARM", company: "Arm Holdings", price: 118.26, gap: 8.1, relVol: 7.1, pmVol: 3100000, float: "mid", news: 76, spread: 0.07, atr: 6.8, trend: 0.69 },
+  { ticker: "IONQ", company: "IonQ", price: 28.18, gap: 9.6, relVol: 9.5, pmVol: 4700000, float: "mid", news: 61, spread: 0.05, atr: 1.9, trend: 0.57 },
+  { ticker: "SOUN", company: "SoundHound AI", price: 8.26, gap: 10.2, relVol: 10.8, pmVol: 9800000, float: "small", news: 58, spread: 0.03, atr: 0.74, trend: 0.53 },
+  { ticker: "LCID", company: "Lucid", price: 3.04, gap: 7.1, relVol: 7.9, pmVol: 8900000, float: "mid", news: 56, spread: 0.01, atr: 0.2, trend: 0.48 },
+  { ticker: "WBD", company: "Warner Bros Discovery", price: 9.14, gap: 4.9, relVol: 5.6, pmVol: 4100000, float: "large", news: 59, spread: 0.02, atr: 0.36, trend: 0.52 },
+  { ticker: "PYPL", company: "PayPal", price: 69.22, gap: 2.8, relVol: 3.9, pmVol: 2400000, float: "large", news: 62, spread: 0.04, atr: 1.9, trend: 0.55 },
+  { ticker: "DIS", company: "Disney", price: 103.54, gap: 2.1, relVol: 3.2, pmVol: 1700000, float: "large", news: 64, spread: 0.04, atr: 2.1, trend: 0.54 },
+  { ticker: "BA", company: "Boeing", price: 178.62, gap: 3.7, relVol: 4.3, pmVol: 2100000, float: "large", news: 72, spread: 0.07, atr: 5.8, trend: 0.56 },
+  { ticker: "WMT", company: "Walmart", price: 96.24, gap: 1.6, relVol: 2.8, pmVol: 1300000, float: "large", news: 58, spread: 0.03, atr: 1.2, trend: 0.5 }
 ];
 
 const state = {
@@ -18,7 +54,8 @@ const state = {
   picks: [],
   journal: [],
   autoRefresh: false,
-  autoTimer: null
+  autoTimer: null,
+  scanSize: universe.length
 };
 
 const defaultGoalTrades = 5;
@@ -104,19 +141,57 @@ function sizeTrade(pick) {
   return { shares, risk, reward, cash: shares * pick.entry };
 }
 
-function scan() {
+async function fetchLiveUniverse() {
+  if (!useLiveData || !apiUrl) return universe;
+  try {
+    const response = await fetch(apiUrl, { signal: AbortSignal.timeout(5000) });
+    if (!response.ok) throw new Error("API request failed");
+    const data = await response.json();
+    const rows = Array.isArray(data) ? data : data.results;
+    const normalized = Array.isArray(rows) ? rows.map(normalizeLiveStock).filter(Boolean) : [];
+    if (!normalized.length && data?.debug?.length) {
+      console.warn("Live API returned no usable rows.", data.debug.slice(0, 5));
+    }
+    return normalized.length ? normalized : universe;
+  } catch (error) {
+    console.warn("Live API failed; falling back to simulated watchlist.", error);
+    return universe;
+  }
+}
+
+function normalizeLiveStock(row) {
+  const price = Number(row.currentPrice ?? row.price ?? row.close);
+  if (!row?.ticker || !price) return null;
+  return {
+    ticker: row.ticker,
+    company: row.company || row.name || row.ticker,
+    price,
+    gap: Number(row.gap ?? row.changePercent ?? row.percent_change ?? 0),
+    relVol: Number(row.relVol ?? row.relativeVolume ?? 3),
+    pmVol: Number(row.pmVol ?? row.volume ?? 0),
+    float: row.float || "unknown",
+    news: Number(row.news ?? row.newsScore ?? 60),
+    spread: Number(row.spread ?? Math.max(0.01, price * 0.0005)),
+    atr: Number(row.atr ?? Math.max(0.1, price * 0.025)),
+    trend: Number(row.trend ?? 0.55)
+  };
+}
+
+async function scan() {
   state.scanId += 1;
-  const picks = universe
+  const sourceUniverse = await fetchLiveUniverse();
+  state.scanSize = sourceUniverse.length;
+  const picks = sourceUniverse
     .map(scoreStock)
     .filter((pick) => {
       const sizing = sizeTrade(pick);
       const targetPerTrade = getTargetPerGoalTrade();
       return (
-        pick.pmVol > 2000000 &&
+        pick.pmVol > 500000 &&
         pick.relVol >= 3 &&
-        pick.gap >= 2 &&
+        Math.abs(pick.gap) >= 0.5 &&
         pick.spread <= 0.1 &&
-        pick.news >= 58 &&
+        pick.news >= 50 &&
         sizing.reward >= targetPerTrade * 0.75
       );
     })
@@ -256,6 +331,7 @@ function renderSummary() {
   qs("goalLeft").textContent = money(getGoalLeft());
   qs("tradesUsed").textContent = String(state.journal.length);
   qs("refreshState").textContent = state.autoRefresh ? "Auto 1 min" : "Manual";
+  qs("scanCount").textContent = `${state.scanSize} stocks`;
 }
 
 function renderJournal() {
@@ -329,7 +405,7 @@ function toggleAutoRefresh() {
   qs("autoRefreshBtn").setAttribute("aria-pressed", String(state.autoRefresh));
   qs("autoRefreshBtn").textContent = state.autoRefresh ? "Auto 1 min: on" : "Auto 1 min: off";
   if (state.autoTimer) clearInterval(state.autoTimer);
-  state.autoTimer = state.autoRefresh ? setInterval(scan, 60000) : null;
+  state.autoTimer = state.autoRefresh ? setInterval(() => scan(), 60000) : null;
   renderSummary();
 }
 
@@ -351,8 +427,8 @@ function bind(id, eventName, handler) {
   if (element) element.addEventListener(eventName, handler);
 }
 
-["capital", "maxLoss", "dailyTarget"].forEach((id) => bind(id, "input", scan));
-bind("refreshBtn", "click", scan);
+["capital", "maxLoss", "dailyTarget"].forEach((id) => bind(id, "input", () => scan()));
+bind("refreshBtn", "click", () => scan());
 bind("autoRefreshBtn", "click", toggleAutoRefresh);
 bind("paperFillBtn", "click", markFilled);
 bind("paperExitBtn", "click", markExited);
