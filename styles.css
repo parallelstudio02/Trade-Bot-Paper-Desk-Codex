@@ -228,10 +228,11 @@ footer {
 
 .pick-card {
   display: grid;
-  grid-template-columns: 90px 210px minmax(260px, 1fr) 150px 120px;
-  gap: 14px;
+  grid-template-columns: minmax(86px, 0.8fr) minmax(190px, 1.35fr) minmax(310px, 2fr) minmax(190px, 1.15fr) minmax(108px, 0.7fr);
+  gap: 16px;
   align-items: center;
   padding: 14px;
+  min-width: 0;
 }
 
 .pick-card.active {
@@ -247,12 +248,14 @@ footer {
 .company {
   color: var(--muted);
   font-size: 12px;
+  line-height: 1.25;
 }
 
 .metrics {
   display: grid;
-  grid-template-columns: repeat(5, minmax(70px, 1fr));
+  grid-template-columns: repeat(5, minmax(58px, 1fr));
   gap: 8px;
+  min-width: 0;
 }
 
 .decision-stack {
@@ -303,6 +306,7 @@ footer {
   padding: 8px;
   border-radius: 6px;
   background: var(--soft);
+  min-width: 0;
 }
 
 .metric span {
@@ -315,16 +319,20 @@ footer {
 .metric strong {
   display: block;
   margin-top: 2px;
+  font-size: 14px;
+  overflow-wrap: anywhere;
 }
 
 .score {
   display: grid;
-  gap: 4px;
+  gap: 6px;
   align-content: center;
+  min-width: 0;
 }
 
 .score strong {
   font-size: 26px;
+  line-height: 1;
   color: var(--green);
 }
 
@@ -332,6 +340,14 @@ footer {
 .trade-row span {
   color: var(--muted);
   font-weight: 700;
+}
+
+.score small {
+  display: block;
+  max-width: 100%;
+  font-size: 12px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
 }
 
 .select-btn {
@@ -461,6 +477,24 @@ footer {
 
   .pick-card {
     grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .decision-stack {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .now-price {
+    grid-row: span 2;
+  }
+
+  .score {
+    grid-template-columns: auto 1fr;
+    align-items: center;
+  }
+
+  .select-btn {
+    width: 100%;
   }
 
   .bot-panel {
@@ -473,6 +507,19 @@ footer {
 }
 
 @media (max-width: 620px) {
+  main {
+    padding-inline: 12px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  .section-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
   .topbar {
     align-items: flex-start;
     flex-direction: column;
@@ -484,5 +531,14 @@ footer {
 
   .metrics {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .decision-stack,
+  .score {
+    grid-template-columns: 1fr;
+  }
+
+  .now-price {
+    grid-row: auto;
   }
 }
